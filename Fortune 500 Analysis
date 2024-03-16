@@ -1,0 +1,48 @@
+#This shows what companies and data I have.
+SELECT(company_name)
+FROM fortune_companies;
+
+#What is the average amount of weeks of maternity leave. 
+SELECT AVG(maternity_leave_weeks)
+FROM fortune_companies;
+
+#Show what company is in the retail industry and with the highest revenue.
+SELECT *
+FROM fortune_companies
+WHERE industry='Retail'
+ORDER BY revenue asc;
+
+#Show what companies are in the retail or manufacturing industry.
+SELECT *
+FROM fortune_companies
+WHERE industry= 'Retail'
+OR industry= 'Manufacturing'
+ORDER BY revenue asc;
+
+#What company have more than 200 in revenue and with over 200000 employees?
+SELECT *
+FROM fortune_companies
+WHERE revenue>=200
+AND employees > 200000
+ORDER BY company_name desc;
+
+#What companies have a total revenue greater than 300?
+SELECT company_name, SUM(revenue)AS total_earned
+FROM fortune_companies
+GROUP BY company_name
+HAVING total_earned >=300;
+
+#Organize the table based on how much revenue each company makes.
+SELECT company_name, revenue,
+CASE WHEN revenue<=280 THEN'Low revenue'
+WHEN revenue<=330 THEN 'Average revenue'
+WHEN revenue<=600 THEN 'High revenue'
+ELSE "No revenue"
+END AS revenue
+FROM fortune_companies
+ORDER BY company_name asc;
+
+#Which company has the least revenue and how much?
+SELECT company_name, min(revenue)
+FROM fortune_companies
+WHERE industry = 'Retail';
